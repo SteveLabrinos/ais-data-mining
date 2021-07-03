@@ -17,5 +17,8 @@ hist(df$Weight, col="blue", breaks=5, xlab="Weight", main="Weight", las=1)
 nWeight<-rnorm(length(df$Weight), mean=mean(df$Weight), sd=sd(df$Weight))
 qqnorm(df$Weight, pch=19);qqline(nWeight)
 
+# Testing if the data are nornally distributed
+shapiro.test(df$Weight)
+
 #Confidence interval
 t.test(df$Weight)

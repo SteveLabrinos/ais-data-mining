@@ -20,7 +20,7 @@ outliers <- boxplot.stats(kyphosis$Number)$out
 outliers
 
 #Which lines correspond to the specific data
-out_ind <- which(kyphosis$Number %in% c(outliers))
+out_ind <- which(kyphosis$Number %in% outliers)
 out_ind
 
 #Repeat with Identify function
