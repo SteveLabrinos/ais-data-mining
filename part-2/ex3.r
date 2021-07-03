@@ -1,24 +1,33 @@
-# Created on: 29/6/21
+# Title     : Data analysis
+# Objective : Examine octapus dataset with a signle variable
+# Created by: chaniotis - steve_lab
+# Created on: 3/7/21
 
-#Dataset
-df <- read.table("./input/OctopusF.txt", header = TRUE)
 
-#Calculate descriptive measures
-#Average
-mean(df$Weight)
+# Load the file into a table
+octapus <- read.table("./input/OctopusF.txt", header = TRUE)
 
-#Standard deviation
-sd(df$Weight)
+# Calculate the statistics of the set (Mean and Quartiles)
+summary(octapus)
+sd(octapus$Weight)
 
 #Create histogram
-hist(df$Weight, col="blue", breaks=5, xlab="Weight", main="Weight", las=1)
+hist(octapus$Weight,
+     col = "blue",
+     nclass = 12,
+     freq = FALSE,
+     xlab = "Weight",
+     ylab = "Density",
+     main = "Weight",
+     las = 1)
 
 #Data regulation check
-nWeight<-rnorm(length(df$Weight), mean=mean(df$Weight), sd=sd(df$Weight))
-qqnorm(df$Weight, pch=19);qqline(nWeight)
-
+nWeight <- rnorm(length(octapus$Weight), mean = mean(octapus$Weight), sd = sd(octapus$Weight))
+qqnorm(octapus$Weight, pch = 19)
+qqline(nWeight, col = "red")
 # Testing if the data are nornally distributed
-shapiro.test(df$Weight)
+shapiro.test(octapus$Weight)
 
 #Confidence interval
-t.test(df$Weight)
+t.test(octapus$Weight)
+
