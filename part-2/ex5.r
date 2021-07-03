@@ -5,6 +5,11 @@ faithful <- read.table("C:/faithfull.txt",header=TRUE)
 
 #Linear regression model
 eruption.lm = lm(eruptions ~ waiting, data=faithful)
+
+# Plotting the linear regression line
+plot(faithful$waiting, faithful$eruptions)
+abline(eruption.lm, col = "red", lwd=2)
+
 coeffs = coefficients(eruption.lm)
 coeffs 
 
