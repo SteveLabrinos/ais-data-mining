@@ -1,41 +1,21 @@
-# Created by: xaniwths
+# Created on: 29/6/21
 
-#Faithful dataset
-faithful <- read.table("C:/faithfull.txt",header=TRUE)
+#Dataset
+df <- read.table("./input/OctopusF.txt", header = TRUE)
 
-#Linear regression model
-eruption.lm = lm(eruptions ~ waiting, data=faithful)
-coeffs = coefficients(eruption.lm)
-coeffs 
+#Calculate descriptive measures
+#Average
+mean(df$Weight)
 
-#Next explosion estimation if the expexted time from last explosion is 80 mins
-waiting = 80
-duration = coeffs[1] + coeffs[2]*waiting 
-duration 
+#Standard deviation
+sd(df$Weight)
 
-#Coefficient of determination
-summary(eruption.lm)$r.squared
+#Create histogram
+hist(df$Weight, col="blue", breaks=5, xlab="Weight", main="Weight", las=1)
 
-#Statistically significant relationship between two variables
-summary(eruption.lm)
+#Data regulation check
+nWeight<-rnorm(length(df$Weight), mean=mean(df$Weight), sd=sd(df$Weight))
+qqnorm(df$Weight, pch=19);qqline(nWeight)
 
-#Create an 95% confidence interval for the eruption duration variable for a given standby time of 80 min
-newdata = data.frame(waiting=80)
-predict(eruption.lm, newdata, interval="confidence") 
-
-#Create an 95% prediction of the eruption duration variable given a waiting time of 80 min
-predict(eruption.lm, newdata, interval="predict") 
-
-#Residual plot
-eruption.res = resid(eruption.lm)
-plot(faithful$waiting, eruption.res, ylab="Residuals", xlab="Waiting Time", main="Faithful Eruptions") 
-abline(0, 0)
-
-#Standardied Residuals plot
-eruption.stdres = rstandard(eruption.lm)
-plot(faithful$waiting, eruption.stdres, ylab="Standardized Residuals", xlab="Waiting Time", main="Faithful Eruptions") 
-abline(0, 0) 
-
-#Q-Q plot to examine the correlation between standardized residuals and normal scores
-qqnorm(eruption.stdres, ylab="Standardized Residuals", xlab="Normal Scores", main="Faithful Eruptions") 
-qqline(eruption.stdres)
+#Confidence interval
+t.test(df$Weight)
